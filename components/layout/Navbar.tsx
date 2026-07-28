@@ -26,7 +26,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-0.2 shrink-0">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
 
             <Image
               src="/images/ofits logo.png"
@@ -34,18 +34,20 @@ export default function Navbar() {
               width={120}
               height={50}
               priority
-              className="w-14 md:w-20 lg:w-28 h-auto priority"
+              className="w-16 md:w-20 lg:w-28 h-auto priority"
             />
 
-            <div className="hidden md:block leading-tight">
-              <h1 className="hidden lg:block text-lg font-bold text-blue-700">
+            <div className="leading-tight">
+              {/*Mobile*/}
+              <h1 className="block md:hidden text-base font-bold text-blue-700">
                 {company.name}
               </h1>
-              <h1 className="block lg:hidden text-xl font-bold text-blue-700">
+              {/*Tablet & Desktop */}
+              <h1 className="hidden md:block text-lg font-bold text-blue-700">
                 {company.name}
               </h1>
 
-              <p className="hidden sm:block text-xs italic text-gray-500">
+              <p className="hidden md:block text-xs italic text-gray-500">
                 {company.slogan}
               </p>
             </div>
