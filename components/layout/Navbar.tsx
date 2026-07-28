@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="max-w-7-xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7-xl mx-auto px-4">
 
         <div className="flex items-center justify-between h-16 md:h-20">
 
@@ -31,13 +31,13 @@ export default function Navbar() {
             <Image
               src="/images/ofits logo.png"
               alt={company.name}
-              width={140}
-              height={55}
+              width={120}
+              height={50}
               priority
-              className="w-24 sm:w-28 md:w-32 lg:w-36 h-auto"
+              className="w-14 md:w-20 lg:w-28 h-auto priority"
             />
 
-            <div className="leading-tight">
+            <div className="hidden md:block leading-tight">
               <h1 className="hidden lg:block text-lg font-bold text-blue-700">
                 {company.name}
               </h1>
