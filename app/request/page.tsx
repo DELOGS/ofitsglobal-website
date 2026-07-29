@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 
 export default function RequestPage() {
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,8 +33,11 @@ export default function RequestPage() {
           }
       );
 
-      alert("Request submitted successfully!");
+      setSuccess(true);
       form.reset();
+      setTimeout(() => {
+        setSuccess(false);
+      }, 5000);
     } catch (error: unknown) {
         console.error("EmailJS Error:", error);
       
@@ -69,11 +73,21 @@ export default function RequestPage() {
         {/* Form */}
         <section className="py-20 bg-gray-20 text-slate-500">
           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10">
+            {success && (
+        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5">
+          <h3 className="text-lg font-semibold text-green-700">
+            ✅ Thank you!
+          </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-
+          <p className="mt-2 text-green-700">
+            Your request has been received successfully.
+            Our team will review your requirements and contact you within
+            <strong> 24 hours.</strong>
+          </p>
+        </div>
+      )}
+           <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-
                 <div>
                   <label className="block mb-2 font-semibold">
                     Full Name
@@ -282,8 +296,13 @@ export default function RequestPage() {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-4 
-                text-lg font-semibold transition"
+                  disabled={loading}
+                  className={`w-full rounded-xl py-4 text-lg font-semibold transition
+                    ${
+                      loading
+                        ? "bg-blue-400 cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-700"
+                    } text-white`}
               >
                 {loading ? "Submitting..." : "Submit Request"}
               </button>
