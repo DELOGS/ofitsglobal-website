@@ -71,10 +71,9 @@ export default function RequestPage() {
         </section>
 
         {/* Form */}
-        <section className="py-20 bg-gray-20 text-slate-500">
-          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10">
+           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10">
             {success && (
-        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5">
+          <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5">
           <h3 className="text-lg font-semibold text-green-700">
             ✅ Thank you!
           </h3>
@@ -310,7 +309,6 @@ export default function RequestPage() {
             </form>
 
           </div>
-        </section>
 
         <Footer />
       </>
