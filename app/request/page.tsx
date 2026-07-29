@@ -28,8 +28,8 @@ export default function RequestPage() {
     alert("Request submitted successfully!");
     form.reset();
   } catch (error) {
-    console.error(error);
-    alert("Failed to submit request. Please try again.");
+    console.error("EmailJS Error:", error);
+    alert("JSON.stringify(error)");
       } finally {
         setLoading(false);
       }
