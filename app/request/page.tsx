@@ -1,7 +1,42 @@
+"use client";
+
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export default function RequestPage() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  const form = e.currentTarget;
+
+  try {
+    await emailjs.sendForm(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        form, 
+        {publicKey:
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        }
+    );
+
+    alert("Request submitted successfully!");
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    alert("Failed to submit request. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+  };
+  
+
+   
   return (
     <>
       <Navbar />
@@ -24,7 +59,7 @@ export default function RequestPage() {
       <section className="py-20 bg-gray-20 text-slate-500">
         <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10">
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
 
             <div className="grid md:grid-cols-2 gap-6">
 
@@ -35,6 +70,8 @@ export default function RequestPage() {
 
                 <input
                   type="text"
+                  name="full_name"
+                  required
                   className="w-full border rounded-xl p-4"
                 />
               </div>
@@ -46,6 +83,7 @@ export default function RequestPage() {
 
                 <input
                   type="text"
+                  name="company"
                   className="w-full border rounded-xl p-4"
                 />
               </div>
@@ -61,6 +99,8 @@ export default function RequestPage() {
 
                 <input
                   type="email"
+                  name="email"
+                  required
                   className="w-full border rounded-xl p-4"
                 />
               </div>
@@ -72,6 +112,8 @@ export default function RequestPage() {
 
                 <input
                   type="text"
+                  name="phone"
+                  required
                   className="w-full border rounded-xl p-4"
                 />
               </div>
@@ -83,7 +125,7 @@ export default function RequestPage() {
                 Industry
               </label>
 
-              <select className="w-full border rounded-xl p-4">
+              <select name="industry" required className="w-full border rounded-xl p-4">
 
                 <option>Select Industry</option>
 
@@ -115,27 +157,51 @@ export default function RequestPage() {
               <div className="grid md:grid-cols-2 gap-3">
 
                 <label>
-                  <input type="checkbox" /> Website Development
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="Website Development"
+                  /> Website Development
                 </label>
 
                 <label>
-                  <input type="checkbox" /> Custom Software Development
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="Custom Software Development"
+                  /> Custom Software Development
                 </label>
 
                 <label>
-                  <input type="checkbox" /> Mobile App Development
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="Mobile App Development"
+                  /> Mobile App Development
                 </label>
 
                 <label>
-                  <input type="checkbox" /> OFITS POS
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="OFITS POS"
+                  /> OFITS POS
                 </label>
 
                 <label>
-                  <input type="checkbox" /> Business Automation
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="Business Automation"
+                  /> Business Automation
                 </label>
 
                 <label>
-                  <input type="checkbox" /> IT Consulting
+                  <input 
+                  type="checkbox" 
+                  name="services"
+                  value="IT Consulting"
+                  /> IT Consulting
                 </label>
 
               </div>
@@ -149,6 +215,8 @@ export default function RequestPage() {
               </label>
 
               <textarea
+                name="project"
+                required
                 rows={6}
                 className="w-full border rounded-xl p-4"
               ></textarea>
@@ -163,7 +231,7 @@ export default function RequestPage() {
                   Estimated Budget
                 </label>
 
-                <select className="w-full border rounded-xl p-4">
+                <select name="budget" className="w-full border rounded-xl p-4">
 
                   <option>Let&apos;s Discuss</option>
 
@@ -185,7 +253,7 @@ export default function RequestPage() {
                   Preferred Timeline
                 </label>
 
-                <select className="w-full border rounded-xl p-4">
+                <select name="timeline" className="w-full border rounded-xl p-4">
 
                   <option>Immediately</option>
 
@@ -202,9 +270,11 @@ export default function RequestPage() {
             </div>
 
             <button
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-4 text-lg font-semibold transition"
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-4 
+              text-lg font-semibold transition"
             >
-              Submit Request
+              {loading ? "Submitting..." : "Submit Request"}
             </button>
 
           </form>
@@ -215,4 +285,4 @@ export default function RequestPage() {
       <Footer />
     </>
   );
-}
+};
